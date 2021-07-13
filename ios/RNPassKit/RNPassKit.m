@@ -61,12 +61,17 @@ RCT_EXPORT_METHOD(getPassUrl:(NSString *)passTypeId
         PKPassLibrary *passLib = [[PKPassLibrary alloc] init];
         PKPass *pass = [passLib passWithPassTypeIdentifier:passTypeId serialNumber:passSerialNumber];
         if (pass) passURL = [pass passURL];
-        else reject(@"", @"Couldn't find pass", error);
+        else {
+          reject(@"", @"Couldn't find pass", error);
+          return;
+        }
     } else {
         reject(@"", @"Couldn't access pass library", error);
+        return;
     }
 
     resolve(passURL.absoluteString);
+    return;
 }
 
 - (NSDictionary *)constantsToExport {
