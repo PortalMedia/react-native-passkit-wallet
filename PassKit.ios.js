@@ -16,6 +16,10 @@ export default {
     return nativeModule.addPass(base64Encoded)
   },
 
+  getPassUrl: (passTypeId: string, serialNumber: string): Promise < void > => {
+    return nativeModule.getPassUrl(passTypeId, serialNumber)
+  },
+
   presentAddPassesViewController: (base64Encoded: string): Promise<void> => {
     // eslint-disable-next-line no-console
     console.warn('PassKit.presentAddPassesViewController is deprecated. Use PassKit.addPass instead.')
