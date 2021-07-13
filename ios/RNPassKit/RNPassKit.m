@@ -50,6 +50,25 @@ RCT_EXPORT_METHOD(addPass:(NSString *)base64Encoded
   });
 }
 
+RCT_EXPORT_METHOD(getPassUrl:(NSString *)passTypeId
+                  passSerialNumber:(NSString *)passSerialNumber
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejector:(RCTPromiseRejectBlock)reject) {
+    NSURL *passURL;
+    NSError *error;
+
+    if ([PKPassLibrary isPassLibraryAvailable]) {
+        PKPassLibrary *passLib = [[PKPassLibrary alloc] init];
+        PKPass *pass = [passLib passWithPassTypeIdentifier:passTypeId serialNumber:passSerialNumber];
+        if (pass) passURL = [pass passURL];
+        else reject(@"", @"Couldn't find pass", error);
+    } else {
+        reject(@"", @"Couldn't access pass library", error);
+    }
+
+    resolve(passURL.absoluteString);
+}
+
 - (NSDictionary *)constantsToExport {
   PKAddPassButton *addPassButton = [[PKAddPassButton alloc] initWithAddPassButtonStyle:PKAddPassButtonStyleBlack];
   [addPassButton layoutIfNeeded];
