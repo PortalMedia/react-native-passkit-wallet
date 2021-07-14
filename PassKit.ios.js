@@ -16,7 +16,7 @@ export default {
     return nativeModule.addPass(base64Encoded)
   },
 
-  getPassUrl: (passTypeId: string, serialNumber: string): Promise < void > => {
+  getPassUrl: (passTypeId: string, serialNumber: string): Promise <void> => {
     return nativeModule.getPassUrl(passTypeId, serialNumber)
   },
 
