@@ -16,7 +16,7 @@ export default {
     return nativeModule.addPass(base64Encoded)
   },
 
-  getPassUrl: (passTypeId: string, serialNumber: string): Promise <void> => {
+  getPassUrl: (passTypeId: string, serialNumber: string): Promise <string> => {
     return nativeModule.getPassUrl(passTypeId, serialNumber)
   },
 
@@ -30,11 +30,7 @@ export default {
     eventType: string,
     listener: Function,
     context: ?Object,
-  ): ?EmitterSubscription => (
-    nativeEventEmitter.addListener(eventType, listener, context)
-  ),
-
-  removeEventListener: (eventType: string, listener: Function): void => {
-    nativeEventEmitter.removeListener(eventType, listener)
-  },
+  ): ?EmitterSubscription => {
+    return nativeEventEmitter.addListener(eventType, listener, context)
+  }
 }
